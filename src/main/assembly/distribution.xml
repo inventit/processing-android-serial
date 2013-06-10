@@ -15,12 +15,27 @@
 
 	<files>
 		<file>
+			<source>README.md</source>
+			<outputDirectory>/</outputDirectory>
+			<filtered>false</filtered>
+		</file>
+		<file>
 			<source>library.properties</source>
 			<outputDirectory>/</outputDirectory>
 			<filtered>false</filtered>
 		</file>
 		<file>
 			<source>target/AndroidSerial.jar</source>
+			<outputDirectory>/library</outputDirectory>
+			<filtered>false</filtered>
+		</file>
+		<file>
+			<source>libs/usb-serial-for-android.license.txt</source>
+			<outputDirectory>/library</outputDirectory>
+			<filtered>false</filtered>
+		</file>
+		<file>
+			<source>libs/slf4j-android.license.txt</source>
 			<outputDirectory>/library</outputDirectory>
 			<filtered>false</filtered>
 		</file>
