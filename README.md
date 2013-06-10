@@ -114,6 +114,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ## Known Issues
 
+ * The release binary will be moved to [SourceForge](http://sourceforge.net/) though it is currently put under the project root
  * Unexpected error occurs when the sketch is compiled and installed into a device
  * The current version of [usb-serial-for-android](https://code.google.com/p/usb-serial-for-android/) has several issues regarding data reading. If `java.io.IOException: Expected at least 2 bytes` is observed, please wait a moment or try to re-connect the cable though the trunk version of the driver is already fixed
 
