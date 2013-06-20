@@ -10,6 +10,8 @@ Note that this version is alpha release.
 
 ## How to use
 
+Build the source code (see below) or download a binary from [our SourceForge project page](https://sourceforge.net/projects/procandser/).
+
 Unzip `AndroidSerial-distribution.zip` and copy all files including `AndroidSerial` directory to your `library` folder (e.g. `~/Documents/Processing/library`).
 
 The usage of the library is almost same as [processing.serial.Serial](http://processing.org/reference/libraries/serial/Serial.html) library.
@@ -59,7 +61,14 @@ You can get a working example from the [sparkfun's pulse sensor SEN-11574](https
 
 ## How to build
 
-Install [maven](http://maven.apache.org/) and run the command:
+You can build the project source code though you can download the built binary from [our SourceForge project page](https://sourceforge.net/projects/procandser/).
+
+Prior to building the project, you need to install the following software:
+
+ 1. JDK 6 (Any JDK will be available)
+ 1. [Apache Maven](http://maven.apache.org/) (Choose the latest one if possible)
+
+Then run the following command under the root of the project:
 
     mvn clean deploy
 
@@ -111,14 +120,21 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
  * [Processing Core](http://wiki.processing.org/w/FAQ#Is_Processing_Open_Source.3F_How_.27bout_some_code.3F) ... LGPL, Processing core library
  * [Android](http://source.android.com/source/licenses.html) ... ASL 2.0, Android API Library
  * [SLFJ Android](http://www.slf4j.org/android/) ... MIT, Logging framework
+ * [Robolectric](https://github.com/robolectric/robolectric/) ... Android testing library (TEST USE ONLY)
+ * [Mockito](https://code.google.com/p/mockito/) ... Mock testing library (TEST USE ONLY)
 
 ## Known Issues
 
- * The release binary will be moved to [SourceForge](http://sourceforge.net/) though it is currently put under the project root
  * Unexpected error occurs when the sketch is compiled and installed into a device
  * The current version of [usb-serial-for-android](https://code.google.com/p/usb-serial-for-android/) has several issues regarding data reading. If `java.io.IOException: Expected at least 2 bytes` is observed, please wait a moment or try to re-connect the cable though the trunk version of the driver is already fixed
 
 ## Change History
+
+0.0.2-alpha : June 20, 2013
+
+ * Fixes an [issue](https://github.com/inventit/processing-android-serial/issues/1) where [Arduino Due](http://arduino.cc/en/Main/arduinoBoardDue) cannot be detected by [usb-serial-for-android](https://code.google.com/p/usb-serial-for-android/) library. Now all Arduino devices are accepted (but not sure they all work properly. [Give us your feedback](https://github.com/inventit/processing-android-serial/issues))
+ * Adds unit testing libraries, [Robolectric](https://github.com/robolectric/robolectric/) and [Mockito](https://code.google.com/p/mockito/)
+ * The release binary has been moved to [our SourceForge project page](https://sourceforge.net/projects/procandser/)
 
 0.0.1-alpha : June 10, 2013
 
