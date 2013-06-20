@@ -15,8 +15,11 @@ import org.slf4j.LoggerFactory;
 import processing.core.PApplet;
 import android.content.Context;
 import android.hardware.usb.UsbDevice;
+import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbManager;
 
+import com.hoho.android.usbserial.driver.CdcAcmSerialDriver;
+import com.hoho.android.usbserial.driver.UsbId;
 import com.hoho.android.usbserial.driver.UsbSerialDriver;
 import com.hoho.android.usbserial.driver.UsbSerialProber;
 import com.yourinventit.processing.android.serial.SerialInputOutputManager.Listener;
@@ -27,7 +30,8 @@ import com.yourinventit.processing.android.serial.SerialInputOutputManager.Liste
  * @author dbaba@yourinventit.com
  * 
  */
-class UsbSerialCommunicator extends AbstractAndroidSerialCommunicator implements Listener {
+class UsbSerialCommunicator extends AbstractAndroidSerialCommunicator implements
+		Listener {
 
 	/**
 	 * {@link Logger}
@@ -77,8 +81,7 @@ class UsbSerialCommunicator extends AbstractAndroidSerialCommunicator implements
 		for (final UsbSerialProber prober : UsbSerialProber.values()) {
 			for (final UsbDevice usbDevice : usbManager.getDeviceList()
 					.values()) {
-				final UsbSerialDriver driver = prober.getDevice(usbManager,
-						usbDevice);
+				final UsbSerialDriver driver = getDevice(prober, usbDevice);
 				if (driver != null
 						&& deviceName
 								.equals(driver.getDevice().getDeviceName())) {
@@ -224,8 +227,7 @@ class UsbSerialCommunicator extends AbstractAndroidSerialCommunicator implements
 		for (final UsbSerialProber prober : UsbSerialProber.values()) {
 			for (final UsbDevice usbDevice : usbManager.getDeviceList()
 					.values()) {
-				final UsbSerialDriver driver = prober.getDevice(usbManager,
-						usbDevice);
+				final UsbSerialDriver driver = getDevice(prober, usbDevice);
 				if (driver != null) {
 					names.add(driver.getDevice().getDeviceName());
 				}
@@ -262,5 +264,40 @@ class UsbSerialCommunicator extends AbstractAndroidSerialCommunicator implements
 	@Override
 	public void write(String what) {
 		write(what.getBytes());
+	}
+
+	/**
+	 * Returns a new {@link UsbSerialDriver} instance
+	 * 
+	 * @param prober
+	 * @param usbDevice
+	 * @return
+	 */
+	protected UsbSerialDriver getDevice(UsbSerialProber prober,
+			UsbDevice usbDevice) {
+		UsbSerialDriver driver = prober.getDevice(usbManager, usbDevice);
+		if (driver == null) {
+			switch (prober) {
+			case CDC_ACM_SERIAL:
+				// Issue #1
+				// https://github.com/inventit/processing-android-serial/issues/1
+				// For supporting other Arduino gadgets than what the usb serial
+				// driver expects shown in the constant UsbId class:
+				// https://code.google.com/p/usb-serial-for-android/source/browse/UsbSerialLibrary/src/com/hoho/android/usbserial/driver/UsbId.java#39
+				if (usbDevice.getVendorId() == UsbId.VENDOR_ARDUINO) {
+					final UsbDeviceConnection connection = usbManager
+							.openDevice(usbDevice);
+					if (connection == null) {
+						return null;
+					}
+					driver = new CdcAcmSerialDriver(usbDevice, connection);
+				}
+				break;
+
+			default:
+				// do nothing for now
+			}
+		}
+		return driver;
 	}
 }
