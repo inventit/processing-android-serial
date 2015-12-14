@@ -65,7 +65,7 @@ You can build the project source code though you can download the built binary f
 
 Prior to building the project, you need to install the following software:
 
- 1. JDK 6 (Any JDK will be available)
+ 1. JDK 6+ (Any JDK will be available)
  1. [Apache Maven](http://maven.apache.org/) (Choose the latest one if possible)
 
 Then run the following command under the root of the project:
@@ -129,6 +129,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
  * The current version of [usb-serial-for-android](https://code.google.com/p/usb-serial-for-android/) has several issues regarding data reading. If `java.io.IOException: Expected at least 2 bytes` is observed, please wait a moment or try to re-connect the cable though the trunk version of the driver is already fixed
 
 ## Change History
+
+0.1.0-alpha : December ??, 2015
+
+ * Processing 3 support and Processing 2 is no longer supported
 
 0.0.2-alpha : June 20, 2013
 
