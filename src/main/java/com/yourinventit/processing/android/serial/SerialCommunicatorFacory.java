@@ -5,13 +5,12 @@ package com.yourinventit.processing.android.serial;
 
 import processing.core.PApplet;
 import processing.data.JSONObject;
-import android.content.Context;
 import android.os.Build;
 
 /**
- * 
+ *
  * @author dbaba@yourinventit.com
- * 
+ *
  */
 public final class SerialCommunicatorFacory {
 
@@ -39,7 +38,7 @@ public final class SerialCommunicatorFacory {
 
 	/**
 	 * Configures the serial library.
-	 * 
+	 *
 	 * @param json
 	 */
 	public void configure(String json) {
@@ -48,7 +47,7 @@ public final class SerialCommunicatorFacory {
 
 	/**
 	 * Configures the serial library.
-	 * 
+	 *
 	 * @param jsonObject
 	 */
 	public void configure(JSONObject jsonObject) {
@@ -57,16 +56,12 @@ public final class SerialCommunicatorFacory {
 
 	/**
 	 * Returns a {@link SerialCommunicator} instance specified by the type.
-	 * 
+	 *
 	 * @param parent
 	 * @param type
 	 * @return
 	 */
 	public SerialCommunicator create(PApplet parent, String type) {
-		if (!(parent instanceof Context)) {
-			throw new IllegalArgumentException(
-					"This library works only on Android.");
-		}
 		if ("usb".equalsIgnoreCase(type)) {
 			return new UsbSerialCommunicator(parent);
 		} else {

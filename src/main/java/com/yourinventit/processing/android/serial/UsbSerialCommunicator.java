@@ -194,7 +194,6 @@ class UsbSerialCommunicator extends AbstractAndroidSerialCommunicator implements
 	 * 
 	 * @see com.yourinventit.processing.android.serial.SerialInputOutputManager.Listener#onNewData(byte[])
 	 */
-	@Override
 	public void onNewData(byte[] data) {
 		sendBuffer(data);
 	}
@@ -204,7 +203,6 @@ class UsbSerialCommunicator extends AbstractAndroidSerialCommunicator implements
 	 * 
 	 * @see com.yourinventit.processing.android.serial.SerialInputOutputManager.Listener#onRunError(java.lang.Exception)
 	 */
-	@Override
 	public void onRunError(Exception e) {
 		LOGGER.warn("Exception detected. Restart SerialInputOutputManager.", e);
 		doStop();

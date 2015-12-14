@@ -106,7 +106,6 @@ class SerialInputOutputManager implements Runnable {
 	 * NOTE(mikey): Uses inefficient read/write-with-timeout. TODO(mikey): Read
 	 * asynchronously with {@link UsbRequest#queue(ByteBuffer, int)}
 	 */
-	@Override
 	public void run() {
 		synchronized (this) {
 			if (getState() != State.STOPPED) {
