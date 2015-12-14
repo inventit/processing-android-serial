@@ -89,8 +89,7 @@ abstract class AbstractAndroidSerialCommunicator extends Serial implements
 	 */
 	public AbstractAndroidSerialCommunicator(PApplet parent) {
 		this.parent = parent;
-		final Context context = (Context) parent;
-		this.applicatoinContext = context.getApplicationContext();
+		this.applicatoinContext = parent.getActivity().getApplicationContext();
 		this.serialEventMethod = resolveSerialEventMethod(parent);
 	}
 
