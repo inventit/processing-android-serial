@@ -130,7 +130,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ## Change History
 
-0.1.0-alpha : December ??, 2015
+0.1.0-alpha : February 29, 2016
 
  * Processing 3 support and Processing 2 is no longer supported
 
