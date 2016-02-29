@@ -8,9 +8,13 @@ import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import android.app.Activity;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import processing.core.PApplet;
 import android.content.Context;
@@ -21,27 +25,30 @@ import android.hardware.usb.UsbManager;
 import com.hoho.android.usbserial.driver.UsbId;
 import com.hoho.android.usbserial.driver.UsbSerialDriver;
 import com.hoho.android.usbserial.driver.UsbSerialProber;
-import com.yourinventit.dmc.api.moat.android.MoatRobolectricTestRunner;
 
 /**
  * 
  * @author dbaba@yourinventit.com
  * 
  */
-@RunWith(MoatRobolectricTestRunner.class)
+@Config(manifest = "src/test/resources/robolectric/AndroidManifest.xml")
+@RunWith(RobolectricTestRunner.class)
 public class UsbSerialCommunicatorTest {
 
 	private UsbSerialCommunicator communicator;
 
 	private final PApplet pApplet = mock(PApplet.class);
+	private final Activity activity = mock(Activity.class);
+	private final Context context = mock(Context.class);
 	private final UsbDevice usbDevice = mock(UsbDevice.class);
 	private final UsbManager usbManager = mock(UsbManager.class);
 	private final UsbDeviceConnection usbDeviceConnection = mock(UsbDeviceConnection.class);
 
 	@Before
 	public void setUp() throws Exception {
-		when(pApplet.getApplicationContext()).thenReturn(pApplet);
-		when(pApplet.getSystemService(Context.USB_SERVICE)).thenReturn(
+		when(pApplet.getActivity()).thenReturn(activity);
+		when(activity.getApplicationContext()).thenReturn(context);
+		when(context.getSystemService(Context.USB_SERVICE)).thenReturn(
 				usbManager);
 		communicator = new UsbSerialCommunicator(pApplet);
 	}
