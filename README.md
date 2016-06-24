@@ -1,5 +1,9 @@
 # AndroidSerial for Processing
 
+[![GitHub release](https://img.shields.io/github/release/inventit/processing-android-serial.svg)](https://github.com/inventit/processing-android-serial/releases/latest)
+[![master Build Status](https://travis-ci.org/inventit/processing-android-serial.svg?branch=master)](https://travis-ci.org/inventit/processing-android-serial/)
+[![License MIT](https://img.shields.io/github/license/inventit/processing-android-serial.svg)](http://opensource.org/licenses/MIT)
+
 This is a Processing-for-Android library offering the serial communication.
 
 This library works on Android 3.1 or later since it uses Android USB Host API.
