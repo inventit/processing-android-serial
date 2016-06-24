@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2013 InventIt Inc.
  */
-package com.yourinventit.processing.android.serial;
+package io.inventit.processing.android.serial;
 
 import processing.core.PApplet;
 
@@ -90,7 +90,7 @@ public class Serial {
 
 	/**
 	 * @param portIdentifier
-	 * @see com.yourinventit.processing.android.serial.SerialCommunicator#start(java.lang.String)
+	 * @see SerialCommunicator#start(java.lang.String)
 	 */
 	public void start(String portIdentifier) {
 		delegate.start(portIdentifier);
@@ -99,7 +99,7 @@ public class Serial {
 	/**
 	 * @param portIdentifier
 	 * @param baudrate
-	 * @see com.yourinventit.processing.android.serial.SerialCommunicator#start(java.lang.String,
+	 * @see SerialCommunicator#start(java.lang.String,
 	 *      int)
 	 */
 	public void start(String portIdentifier, int baudrate) {
@@ -112,7 +112,7 @@ public class Serial {
 	 * @param parity
 	 * @param dataBits
 	 * @param stopBits
-	 * @see com.yourinventit.processing.android.serial.SerialCommunicator#start(java.lang.String,
+	 * @see SerialCommunicator#start(java.lang.String,
 	 *      int, char, int, float)
 	 */
 	public void start(String portIdentifier, int baudrate, char parity,
@@ -122,7 +122,7 @@ public class Serial {
 
 	/**
 	 * 
-	 * @see com.yourinventit.processing.android.serial.SerialCommunicator#stop()
+	 * @see SerialCommunicator#stop()
 	 */
 	public void stop() {
 		delegate.stop();
@@ -130,7 +130,7 @@ public class Serial {
 
 	/**
 	 * @param count
-	 * @see com.yourinventit.processing.android.serial.SerialCommunicator#buffer(int)
+	 * @see SerialCommunicator#buffer(int)
 	 */
 	public void buffer(int count) {
 		delegate.buffer(count);
@@ -138,7 +138,7 @@ public class Serial {
 
 	/**
 	 * @param what
-	 * @see com.yourinventit.processing.android.serial.SerialCommunicator#bufferUntil(int)
+	 * @see SerialCommunicator#bufferUntil(int)
 	 */
 	public void bufferUntil(int what) {
 		delegate.bufferUntil(what);
@@ -146,7 +146,7 @@ public class Serial {
 
 	/**
 	 * @return
-	 * @see com.yourinventit.processing.android.serial.SerialCommunicator#available()
+	 * @see SerialCommunicator#available()
 	 */
 	public int available() {
 		return delegate.available();
@@ -154,7 +154,7 @@ public class Serial {
 
 	/**
 	 * 
-	 * @see com.yourinventit.processing.android.serial.SerialCommunicator#clear()
+	 * @see SerialCommunicator#clear()
 	 */
 	public void clear() {
 		delegate.clear();
@@ -162,7 +162,7 @@ public class Serial {
 
 	/**
 	 * @return
-	 * @see com.yourinventit.processing.android.serial.SerialCommunicator#read()
+	 * @see SerialCommunicator#read()
 	 */
 	public int read() {
 		return delegate.read();
@@ -170,7 +170,7 @@ public class Serial {
 
 	/**
 	 * @return
-	 * @see com.yourinventit.processing.android.serial.SerialCommunicator#readBytes()
+	 * @see SerialCommunicator#readBytes()
 	 */
 	public byte[] readBytes() {
 		return delegate.readBytes();
@@ -179,7 +179,7 @@ public class Serial {
 	/**
 	 * @param byteBuffer
 	 * @return
-	 * @see com.yourinventit.processing.android.serial.SerialCommunicator#readBytes(byte[])
+	 * @see SerialCommunicator#readBytes(byte[])
 	 */
 	public int readBytes(byte[] byteBuffer) {
 		return delegate.readBytes(byteBuffer);
@@ -188,7 +188,7 @@ public class Serial {
 	/**
 	 * @param interesting
 	 * @return
-	 * @see com.yourinventit.processing.android.serial.SerialCommunicator#readBytesUntil(int)
+	 * @see SerialCommunicator#readBytesUntil(int)
 	 */
 	public byte[] readBytesUntil(int interesting) {
 		return delegate.readBytesUntil(interesting);
@@ -198,7 +198,7 @@ public class Serial {
 	 * @param interesting
 	 * @param byteBuffer
 	 * @return
-	 * @see com.yourinventit.processing.android.serial.SerialCommunicator#readBytesUntil(int,
+	 * @see SerialCommunicator#readBytesUntil(int,
 	 *      byte[])
 	 */
 	public int readBytesUntil(int interesting, byte[] byteBuffer) {
@@ -207,7 +207,7 @@ public class Serial {
 
 	/**
 	 * @return
-	 * @see com.yourinventit.processing.android.serial.SerialCommunicator#readString()
+	 * @see SerialCommunicator#readString()
 	 */
 	public String readString() {
 		return delegate.readString();
@@ -216,7 +216,7 @@ public class Serial {
 	/**
 	 * @param interesting
 	 * @return
-	 * @see com.yourinventit.processing.android.serial.SerialCommunicator#readStringUntil(int)
+	 * @see SerialCommunicator#readStringUntil(int)
 	 */
 	public String readStringUntil(int interesting) {
 		return delegate.readStringUntil(interesting);
@@ -224,7 +224,7 @@ public class Serial {
 
 	/**
 	 * @param what
-	 * @see com.yourinventit.processing.android.serial.SerialCommunicator#write(int)
+	 * @see SerialCommunicator#write(int)
 	 */
 	public void write(int what) {
 		delegate.write(what);
@@ -232,7 +232,7 @@ public class Serial {
 
 	/**
 	 * @param what
-	 * @see com.yourinventit.processing.android.serial.SerialCommunicator#write(byte[])
+	 * @see SerialCommunicator#write(byte[])
 	 */
 	public void write(byte[] what) {
 		delegate.write(what);
@@ -240,7 +240,7 @@ public class Serial {
 
 	/**
 	 * @param what
-	 * @see com.yourinventit.processing.android.serial.SerialCommunicator#write(java.lang.String)
+	 * @see SerialCommunicator#write(java.lang.String)
 	 */
 	public void write(String what) {
 		delegate.write(what);
@@ -248,7 +248,7 @@ public class Serial {
 
 	/**
 	 * @return
-	 * @see com.yourinventit.processing.android.serial.SerialCommunicator#list()
+	 * @see SerialCommunicator#list()
 	 */
 	public String[] list() {
 		return delegate.list();

@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2013 InventIt Inc.
  */
-package com.yourinventit.processing.android.serial;
+package io.inventit.processing.android.serial;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -198,7 +198,7 @@ abstract class AbstractAndroidSerialCommunicator extends Serial implements
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see com.yourinventit.processing.android.serial.SerialCommunicator#buffer(int)
+	 * @see SerialCommunicator#buffer(int)
 	 */
 	@Override
 	public void buffer(int count) {
@@ -214,7 +214,7 @@ abstract class AbstractAndroidSerialCommunicator extends Serial implements
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see com.yourinventit.processing.android.serial.SerialCommunicator#bufferUntil(int)
+	 * @see SerialCommunicator#bufferUntil(int)
 	 */
 	@Override
 	public void bufferUntil(int what) {
@@ -289,7 +289,7 @@ abstract class AbstractAndroidSerialCommunicator extends Serial implements
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see com.yourinventit.processing.android.serial.SerialCommunicator#start(java.lang.String)
+	 * @see SerialCommunicator#start(java.lang.String)
 	 */
 	@Override
 	public void start(String portIdentifier) {
@@ -299,7 +299,7 @@ abstract class AbstractAndroidSerialCommunicator extends Serial implements
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see com.yourinventit.processing.android.serial.SerialCommunicator#start(java.lang.String,
+	 * @see SerialCommunicator#start(java.lang.String,
 	 *      int)
 	 */
 	@Override
@@ -310,7 +310,7 @@ abstract class AbstractAndroidSerialCommunicator extends Serial implements
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see com.yourinventit.processing.android.serial.SerialCommunicator#start(java.lang.String,
+	 * @see SerialCommunicator#start(java.lang.String,
 	 *      int, char, int, float)
 	 */
 	@Override
@@ -346,7 +346,7 @@ abstract class AbstractAndroidSerialCommunicator extends Serial implements
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see com.yourinventit.processing.android.serial.SerialCommunicator#stop()
+	 * @see SerialCommunicator#stop()
 	 */
 	@Override
 	public final void stop() {
@@ -378,7 +378,7 @@ abstract class AbstractAndroidSerialCommunicator extends Serial implements
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see com.yourinventit.processing.android.serial.SerialCommunicator#available()
+	 * @see SerialCommunicator#available()
 	 */
 	@Override
 	public int available() {
@@ -392,7 +392,7 @@ abstract class AbstractAndroidSerialCommunicator extends Serial implements
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see com.yourinventit.processing.android.serial.SerialCommunicator#clear()
+	 * @see SerialCommunicator#clear()
 	 */
 	@Override
 	public synchronized void clear() {
@@ -410,7 +410,7 @@ abstract class AbstractAndroidSerialCommunicator extends Serial implements
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see com.yourinventit.processing.android.serial.SerialCommunicator#read()
+	 * @see SerialCommunicator#read()
 	 */
 	@Override
 	public synchronized int read() {
@@ -424,7 +424,7 @@ abstract class AbstractAndroidSerialCommunicator extends Serial implements
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see com.yourinventit.processing.android.serial.SerialCommunicator#readBytes()
+	 * @see SerialCommunicator#readBytes()
 	 */
 	@Override
 	public synchronized byte[] readBytes() {
@@ -451,7 +451,7 @@ abstract class AbstractAndroidSerialCommunicator extends Serial implements
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see com.yourinventit.processing.android.serial.SerialCommunicator#readBytes(byte[])
+	 * @see SerialCommunicator#readBytes(byte[])
 	 */
 	@Override
 	public synchronized int readBytes(byte[] byteBuffer) {
@@ -465,7 +465,7 @@ abstract class AbstractAndroidSerialCommunicator extends Serial implements
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see com.yourinventit.processing.android.serial.SerialCommunicator#readBytesUntil(int)
+	 * @see SerialCommunicator#readBytesUntil(int)
 	 */
 	@Override
 	public synchronized byte[] readBytesUntil(int interesting) {
@@ -487,7 +487,7 @@ abstract class AbstractAndroidSerialCommunicator extends Serial implements
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see com.yourinventit.processing.android.serial.SerialCommunicator#readBytesUntil(int,
+	 * @see SerialCommunicator#readBytesUntil(int,
 	 *      byte[])
 	 */
 	@Override
@@ -510,7 +510,7 @@ abstract class AbstractAndroidSerialCommunicator extends Serial implements
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see com.yourinventit.processing.android.serial.SerialCommunicator#readString()
+	 * @see SerialCommunicator#readString()
 	 */
 	@Override
 	public String readString() {
@@ -520,7 +520,7 @@ abstract class AbstractAndroidSerialCommunicator extends Serial implements
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see com.yourinventit.processing.android.serial.SerialCommunicator#readStringUntil(int)
+	 * @see SerialCommunicator#readStringUntil(int)
 	 */
 	@Override
 	public String readStringUntil(int interesting) {

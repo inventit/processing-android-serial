@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2013 InventIt Inc.
  */
-package com.yourinventit.processing.android.serial;
+package io.inventit.processing.android.serial;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ import com.hoho.android.usbserial.driver.CdcAcmSerialDriver;
 import com.hoho.android.usbserial.driver.UsbId;
 import com.hoho.android.usbserial.driver.UsbSerialDriver;
 import com.hoho.android.usbserial.driver.UsbSerialProber;
-import com.yourinventit.processing.android.serial.SerialInputOutputManager.Listener;
+import io.inventit.processing.android.serial.SerialInputOutputManager.Listener;
 
 /**
  * Serial class implementation with USB serial.
@@ -95,7 +95,7 @@ class UsbSerialCommunicator extends AbstractAndroidSerialCommunicator implements
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see com.yourinventit.processing.android.serial.AbstractAndroidSerialCommunicator#doStart(java.lang.String,
+	 * @see AbstractAndroidSerialCommunicator#doStart(java.lang.String,
 	 *      int, char, int, float)
 	 */
 	@Override
@@ -174,7 +174,7 @@ class UsbSerialCommunicator extends AbstractAndroidSerialCommunicator implements
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see com.yourinventit.processing.android.serial.AbstractAndroidSerialCommunicator#doStop()
+	 * @see AbstractAndroidSerialCommunicator#doStop()
 	 */
 	@Override
 	protected void doStop() {
@@ -192,7 +192,7 @@ class UsbSerialCommunicator extends AbstractAndroidSerialCommunicator implements
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see com.yourinventit.processing.android.serial.SerialInputOutputManager.Listener#onNewData(byte[])
+	 * @see SerialInputOutputManager.Listener#onNewData(byte[])
 	 */
 	public void onNewData(byte[] data) {
 		sendBuffer(data);
@@ -201,7 +201,7 @@ class UsbSerialCommunicator extends AbstractAndroidSerialCommunicator implements
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see com.yourinventit.processing.android.serial.SerialInputOutputManager.Listener#onRunError(java.lang.Exception)
+	 * @see SerialInputOutputManager.Listener#onRunError(java.lang.Exception)
 	 */
 	public void onRunError(Exception e) {
 		LOGGER.warn("Exception detected. Restart SerialInputOutputManager.", e);
@@ -217,7 +217,7 @@ class UsbSerialCommunicator extends AbstractAndroidSerialCommunicator implements
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see com.yourinventit.processing.android.serial.SerialCommunicator#list()
+	 * @see SerialCommunicator#list()
 	 */
 	@Override
 	public String[] list() {
@@ -237,7 +237,7 @@ class UsbSerialCommunicator extends AbstractAndroidSerialCommunicator implements
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see com.yourinventit.processing.android.serial.SerialCommunicator#write(byte[])
+	 * @see SerialCommunicator#write(byte[])
 	 */
 	@Override
 	public void write(byte[] what) {
@@ -247,7 +247,7 @@ class UsbSerialCommunicator extends AbstractAndroidSerialCommunicator implements
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see com.yourinventit.processing.android.serial.SerialCommunicator#write(int)
+	 * @see SerialCommunicator#write(int)
 	 */
 	@Override
 	public void write(int what) {
@@ -257,7 +257,7 @@ class UsbSerialCommunicator extends AbstractAndroidSerialCommunicator implements
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see com.yourinventit.processing.android.serial.SerialCommunicator#write(java.lang.String)
+	 * @see SerialCommunicator#write(java.lang.String)
 	 */
 	@Override
 	public void write(String what) {

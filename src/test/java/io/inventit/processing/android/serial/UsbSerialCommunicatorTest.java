@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2013 InventIt Inc.
  */
-package com.yourinventit.processing.android.serial;
+package io.inventit.processing.android.serial;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -9,6 +9,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import android.app.Activity;
+import io.inventit.processing.android.serial.UsbSerialCommunicator;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
