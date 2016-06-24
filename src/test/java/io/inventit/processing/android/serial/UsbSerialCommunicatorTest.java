@@ -9,7 +9,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import android.app.Activity;
-import io.inventit.processing.android.serial.UsbSerialCommunicator;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
