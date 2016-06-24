@@ -38,7 +38,7 @@
 		<dependency>
 			<groupId>processing</groupId>
 			<artifactId>android-core</artifactId>
-			<version>android-mode-0246</version>
+			<version>android-mode-0251</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
