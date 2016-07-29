@@ -3,9 +3,9 @@
  */
 package io.inventit.processing.android.serial;
 
+import android.os.Build;
 import processing.core.PApplet;
 import processing.data.JSONObject;
-import android.os.Build;
 
 /**
  *

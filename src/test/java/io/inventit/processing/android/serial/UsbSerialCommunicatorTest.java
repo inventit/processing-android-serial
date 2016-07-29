@@ -3,6 +3,7 @@
  */
 package io.inventit.processing.android.serial;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
@@ -25,6 +26,9 @@ import android.hardware.usb.UsbManager;
 import com.hoho.android.usbserial.driver.UsbId;
 import com.hoho.android.usbserial.driver.UsbSerialDriver;
 import com.hoho.android.usbserial.driver.UsbSerialProber;
+
+import java.util.Collections;
+import java.util.HashMap;
 
 /**
  * 
@@ -58,38 +62,12 @@ public class UsbSerialCommunicatorTest {
 	 */
 	@Test
 	public void test_getDevice_ok1() {
+		when(usbManager.getDeviceList()).thenReturn(new HashMap<String, UsbDevice>(Collections.singletonMap("port", usbDevice)));
 		when(usbDevice.getVendorId()).thenReturn(UsbId.VENDOR_ARDUINO);
 		when(usbDevice.getProductId()).thenReturn(UsbId.ARDUINO_LEONARDO);
 		when(usbManager.openDevice(usbDevice)).thenReturn(usbDeviceConnection);
-		final UsbSerialDriver driver = communicator.getDevice(
-				UsbSerialProber.CDC_ACM_SERIAL, usbDevice);
-		assertNotNull(driver);
+		final String[] portNames = communicator.list();
+		assertNotNull(portNames);
 	}
 
-	/**
-	 * Arduino Due Test
-	 */
-	@Test
-	public void test_getDevice_ok2() {
-		when(usbDevice.getVendorId()).thenReturn(UsbId.VENDOR_ARDUINO);
-		// http://www.devtal.de/wiki/Benutzer:Rdiez/ArduinoDue
-		// 0x003e for Arduino Due
-		when(usbDevice.getProductId()).thenReturn(0x003e);
-		when(usbManager.openDevice(usbDevice)).thenReturn(usbDeviceConnection);
-		final UsbSerialDriver driver = communicator.getDevice(
-				UsbSerialProber.CDC_ACM_SERIAL, usbDevice);
-		assertNotNull(driver);
-	}
-
-	/**
-	 * Ensure not working with other vendor ID than Arduino's.
-	 */
-	@Test
-	public void test_getDevice_null() {
-		when(usbDevice.getVendorId()).thenReturn(UsbId.VENDOR_FTDI);
-		when(usbManager.openDevice(usbDevice)).thenReturn(usbDeviceConnection);
-		final UsbSerialDriver driver = communicator.getDevice(
-				UsbSerialProber.CDC_ACM_SERIAL, usbDevice);
-		assertNull(driver);
-	}
 }

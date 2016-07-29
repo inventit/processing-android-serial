@@ -3,26 +3,25 @@
  */
 package io.inventit.processing.android.serial;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.hardware.usb.UsbDevice;
+import android.hardware.usb.UsbDeviceConnection;
+import android.hardware.usb.UsbManager;
+import com.hoho.android.usbserial.driver.UsbSerialDriver;
+import com.hoho.android.usbserial.driver.UsbSerialPort;
+import com.hoho.android.usbserial.driver.UsbSerialProber;
+import io.inventit.processing.android.serial.SerialInputOutputManager.Listener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import processing.core.PApplet;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import processing.core.PApplet;
-import android.content.Context;
-import android.hardware.usb.UsbDevice;
-import android.hardware.usb.UsbDeviceConnection;
-import android.hardware.usb.UsbManager;
-
-import com.hoho.android.usbserial.driver.CdcAcmSerialDriver;
-import com.hoho.android.usbserial.driver.UsbId;
-import com.hoho.android.usbserial.driver.UsbSerialDriver;
-import com.hoho.android.usbserial.driver.UsbSerialProber;
-import io.inventit.processing.android.serial.SerialInputOutputManager.Listener;
 
 /**
  * Serial class implementation with USB serial.
@@ -45,9 +44,14 @@ class UsbSerialCommunicator extends AbstractAndroidSerialCommunicator implements
 	private final UsbManager usbManager;
 
 	/**
-	 * {@link UsbSerialDriver}
+	 * {@link UsbSerialPort}
 	 */
-	private UsbSerialDriver usbSerialDriver;
+	private UsbSerialPort usbSerialDriver;
+
+	/**
+	 * {@link UsbDeviceConnection}
+     */
+	private UsbDeviceConnection usbDeviceConnection;
 
 	/**
 	 * {@link ExecutorService}
@@ -76,17 +80,19 @@ class UsbSerialCommunicator extends AbstractAndroidSerialCommunicator implements
 	 */
 	protected UsbSerialDriver findUsbSerialDriver(String deviceName) {
 		if (deviceName == null || deviceName.length() == 0) {
-			return UsbSerialProber.acquire(usbManager);
+			final List<UsbSerialDriver> drivers = UsbSerialProber.getDefaultProber().findAllDrivers(usbManager);
+			if (drivers == null || drivers.isEmpty()) {
+				return null;
+			}
+			return drivers.get(0);
 		}
-		for (final UsbSerialProber prober : UsbSerialProber.values()) {
-			for (final UsbDevice usbDevice : usbManager.getDeviceList()
-					.values()) {
-				final UsbSerialDriver driver = getDevice(prober, usbDevice);
-				if (driver != null
-						&& deviceName
-								.equals(driver.getDevice().getDeviceName())) {
-					return driver;
-				}
+		for (final UsbDevice usbDevice : usbManager.getDeviceList()
+				.values()) {
+			final UsbSerialDriver driver = UsbSerialProber.getDefaultProber().probeDevice(usbDevice);
+			if (driver != null
+					&& deviceName
+							.equals(driver.getDevice().getDeviceName())) {
+				return driver;
 			}
 		}
 		return null;
@@ -99,20 +105,45 @@ class UsbSerialCommunicator extends AbstractAndroidSerialCommunicator implements
 	 *      int, char, int, float)
 	 */
 	@Override
-	protected void doStart(String portIdentifier, int baudrate, char parity,
+	protected void doStart(final String portIdentifier, int baudrate, char parity,
 			int dataBits, float stopBits) {
 		// TODO Supporting parity, dataBits and stopBits parameters. v101 doesn't support them.
 		LOGGER.info("parity, dataBits and stopBits are not supported yet.");
 		if (inquireUsbSerialDriver(portIdentifier, baudrate) == false) {
 			// failed to start
-			throw new IllegalStateException("Cannot setup USB Serial.");
+            LOGGER.error("Failed to start as this app failed to retrieve a serial driver: port={}", portIdentifier);
+            final boolean[] waiting = { true };
+            getParent().getActivity().runOnUiThread(new Runnable() {
+                public void run() {
+                    new AlertDialog.Builder(getParent().getActivity())
+                            .setTitle("Processing-Android USB Serial ERROR")
+                            .setMessage("Port: " + portIdentifier + "\n" +
+                                    "Check the following items:\n" +
+                                    "1. Make sure AndroidManifest.xml contains <use-feature> tag for android.hardware.usb.host\n" +
+                                    "2. -----------\n")
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    waiting[0] = false;
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }
+            });
+            while (waiting[0]) {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException ignored) {
+                }
+            }
+            getParent().getActivity().finish();
 		}
 	}
 
 	/**
 	 * Inquires a USB serial driver and returns if any driver is detected.
 	 * 
-	 * @param deviceName
+	 * @param deviceName null for wildcard
 	 * @return true if a USB serial driver is found and is ready.
 	 */
 	protected boolean inquireUsbSerialDriver(String deviceName, int baudRate) {
@@ -123,15 +154,17 @@ class UsbSerialCommunicator extends AbstractAndroidSerialCommunicator implements
 		try {
 			stopSerialInputOutputManager();
 			if (usbSerialDriver != null) {
-				usbSerialDriver.open();
-				usbSerialDriver.setBaudRate(baudRate);
+				this.usbDeviceConnection = this.usbManager.openDevice(usbSerialDriver.getDevice());
+				final UsbSerialPort port = usbSerialDriver.getPorts().get(0);
+				port.open(this.usbDeviceConnection);
+				port.setParameters(baudRate, 8, UsbSerialPort.STOPBITS_1, UsbSerialPort.PARITY_NONE);
 			}
 
 		} catch (IOException exception) {
 			usbSerialDriver = null;
 
 		} finally {
-			this.usbSerialDriver = usbSerialDriver;
+			this.usbSerialDriver = usbSerialDriver.getPorts().get(0);
 			startSerialInputOutputManager();
 		}
 		return usbSerialDriver != null;
@@ -181,10 +214,10 @@ class UsbSerialCommunicator extends AbstractAndroidSerialCommunicator implements
 		stopSerialInputOutputManager();
 		if (usbSerialDriver != null) {
 			try {
-				usbSerialDriver.close();
-			} catch (IOException ignored) {
+				usbDeviceConnection.close();
 			} finally {
 				usbSerialDriver = null;
+				usbDeviceConnection = null;
 			}
 		}
 	}
@@ -222,13 +255,11 @@ class UsbSerialCommunicator extends AbstractAndroidSerialCommunicator implements
 	@Override
 	public String[] list() {
 		final List<String> names = new ArrayList<String>();
-		for (final UsbSerialProber prober : UsbSerialProber.values()) {
-			for (final UsbDevice usbDevice : usbManager.getDeviceList()
-					.values()) {
-				final UsbSerialDriver driver = getDevice(prober, usbDevice);
-				if (driver != null) {
-					names.add(driver.getDevice().getDeviceName());
-				}
+		for (final UsbDevice usbDevice : usbManager.getDeviceList()
+				.values()) {
+			final UsbSerialDriver driver = UsbSerialProber.getDefaultProber().probeDevice(usbDevice);
+			if (driver != null) {
+				names.add(driver.getDevice().getDeviceName());
 			}
 		}
 		return names.toArray(new String[names.size()]);
@@ -262,40 +293,5 @@ class UsbSerialCommunicator extends AbstractAndroidSerialCommunicator implements
 	@Override
 	public void write(String what) {
 		write(what.getBytes());
-	}
-
-	/**
-	 * Returns a new {@link UsbSerialDriver} instance
-	 * 
-	 * @param prober
-	 * @param usbDevice
-	 * @return
-	 */
-	protected UsbSerialDriver getDevice(UsbSerialProber prober,
-			UsbDevice usbDevice) {
-		UsbSerialDriver driver = prober.getDevice(usbManager, usbDevice);
-		if (driver == null) {
-			switch (prober) {
-			case CDC_ACM_SERIAL:
-				// Issue #1
-				// https://github.com/inventit/processing-android-serial/issues/1
-				// For supporting other Arduino gadgets than what the usb serial
-				// driver expects shown in the constant UsbId class:
-				// https://code.google.com/p/usb-serial-for-android/source/browse/UsbSerialLibrary/src/com/hoho/android/usbserial/driver/UsbId.java#39
-				if (usbDevice.getVendorId() == UsbId.VENDOR_ARDUINO) {
-					final UsbDeviceConnection connection = usbManager
-							.openDevice(usbDevice);
-					if (connection == null) {
-						return null;
-					}
-					driver = new CdcAcmSerialDriver(usbDevice, connection);
-				}
-				break;
-
-			default:
-				// do nothing for now
-			}
-		}
-		return driver;
 	}
 }
