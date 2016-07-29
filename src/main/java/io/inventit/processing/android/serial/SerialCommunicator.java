@@ -12,10 +12,10 @@ package io.inventit.processing.android.serial;
  * In order to instantiate this class, you must invoke
  * {@link SerialCommunicatorFacory#create(processing.core.PApplet, String)}.
  * 
- * Use {@link SerialCommunicator#start(String, int, String, String, String, String)} to set
- * a port idenfier, baurdrate, etc.
+ * Use {@link SerialCommunicator#start(String, int, char, int, float)} to set
+ * a port identifier, baurdrate, etc.
  * 
- * You can get a list of avaiable port identifiers by {@link SerialCommunicator#list()}.
+ * You can get a list of available port identifiers by {@link SerialCommunicator#list()}.
  * 
  * @author dbaba@yourinventit.com
  * 
