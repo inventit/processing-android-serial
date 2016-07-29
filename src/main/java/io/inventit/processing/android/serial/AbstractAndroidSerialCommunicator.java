@@ -3,21 +3,15 @@
  */
 package io.inventit.processing.android.serial;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PipedInputStream;
-import java.io.PipedOutputStream;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
+import android.content.Context;
+import com.hoho.android.usbserial.util.HexDump;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import processing.core.PApplet;
-import android.content.Context;
 
-import com.hoho.android.usbserial.util.HexDump;
+import java.io.*;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * 
@@ -82,6 +76,8 @@ abstract class AbstractAndroidSerialCommunicator extends Serial implements
 	private int dataBits;
 
 	private float stopBits;
+
+	private int last;
 
 	/**
 	 * 
@@ -415,10 +411,24 @@ abstract class AbstractAndroidSerialCommunicator extends Serial implements
 	@Override
 	public synchronized int read() {
 		try {
-			return this.readBufferInputStream.read();
+			final int b = this.readBufferInputStream.read();
+			this.last = b;
+			return b;
 		} catch (IOException e) {
 			throw new IllegalStateException(e);
 		}
+	}
+
+	public char readChar() {
+		return (char) this.read();
+	}
+
+	public int last() {
+		return this.last;
+	}
+
+	public char lastChar() {
+		return (char) this.last;
 	}
 
 	/**

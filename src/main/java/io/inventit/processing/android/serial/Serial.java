@@ -168,6 +168,18 @@ public class Serial {
 		return delegate.read();
 	}
 
+	public char readChar() {
+		return delegate.readChar();
+	}
+
+	public int last() {
+		return delegate.last();
+	}
+
+	public char lastChar() {
+		return delegate.lastChar();
+	}
+
 	/**
 	 * @return
 	 * @see SerialCommunicator#readBytes()
