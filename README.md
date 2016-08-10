@@ -14,9 +14,11 @@ Note that this version is alpha release.
 
 ## How to use
 
-Build the source code (see below) or download a binary from [our SourceForge project page](https://sourceforge.net/projects/procandser/).
+Build the source code (see below) or download a binary from [the release page](https://github.com/inventit/processing-android-serial/releases).
 
-Unzip `AndroidSerial-distribution.zip` and copy all files including `AndroidSerial` directory to your `library` folder (e.g. `~/Documents/Processing/library`).
+Unzip `AndroidSerial-distribution.zip` and copy all files including `AndroidSerial` directory to your `libraries` folder (e.g. `~/Documents/Processing/libraries`).
+
+If you already install the older version of `AndroidSerial` library, remove it prior to copying the new one.
 
 The usage of the library is almost same as [processing.serial.Serial](http://processing.org/reference/libraries/serial/Serial.html) library.
 
