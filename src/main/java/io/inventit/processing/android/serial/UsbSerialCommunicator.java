@@ -120,7 +120,7 @@ class UsbSerialCommunicator extends AbstractAndroidSerialCommunicator implements
                             .setMessage("Port: " + portIdentifier + "\n" +
                                     "Check the following items:\n" +
                                     "1. Make sure AndroidManifest.xml contains <use-feature> tag for android.hardware.usb.host\n" +
-                                    "2. -----------\n")
+                                    "2. USB Serial is connected to the device\n")
                             .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     waiting[0] = false;
