@@ -164,7 +164,9 @@ class UsbSerialCommunicator extends AbstractAndroidSerialCommunicator implements
 			usbSerialDriver = null;
 
 		} finally {
-			this.usbSerialDriver = usbSerialDriver.getPorts().get(0);
+			if (usbSerialDriver != null) {
+				this.usbSerialDriver = usbSerialDriver.getPorts().get(0);
+			}
 			startSerialInputOutputManager();
 		}
 		return usbSerialDriver != null;
