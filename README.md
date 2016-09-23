@@ -45,18 +45,18 @@ You can get a working example from the [sparkfun's pulse sensor SEN-11574](https
  1. Download the Processing sketch from `Documents` section
  1. Open the downloaded sketch
  1. Sketch -> Import Library -> Android Serial Library for Processing (This will insert `import io.inventit.processing.android.serial.*;`)
- 1. Modify the code as below
+ 1. Modify the code as below (see [here](https://github.com/WorldFamousElectronics/PulseSensor_Amped_Processing_Visualizer/blob/pr/1/PulseSensorAmpd_Processing_1dot1/PulseSensorAmpd_Processing_1dot1.pde) for the source code available at the sparkfun site)
 
-        around L9: // import processing.serial.*; // comment out
-        around L57: println(Serial.list());    // print a list of available serial ports
+        L9: // import processing.serial.*; // comment out
+        L57: println(Serial.list());    // print a list of available serial ports
                      | (add `this`)
                      v
-        around L57: println(Serial.list(this));    // print a list of available serial ports
+        L57: println(Serial.list(this));    // print a list of available serial ports
 
-        around L61: port = new Serial(this, Serial.list()[0], 115200);  // make sure Arduino is talking serial at this baud rate
+        L61: port = new Serial(this, Serial.list()[0], 115200);  // make sure Arduino is talking serial at this baud rate
                      | (add `this`)
                      v
-	    around L61: port = new Serial(this, Serial.list(this)[0], 115200);  // make sure Arduino is talking serial at this baud rate
+	    L61: port = new Serial(this, Serial.list(this)[0], 115200);  // make sure Arduino is talking serial at this baud rate
 
  1. Please make sure that you need to check and modify the index of `Serial.list(this)` at the line 62 in order to specify the valid port name
  1. Create `res/xml` directories under the opened sketch directory (e.g. `~/Documents/Processing/PulseSensorAmpd_Processing_1dot1`)
