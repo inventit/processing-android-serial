@@ -38,32 +38,37 @@ Other methods in processing.serial.Serial class should work without any changes.
 
 You can get a working example from the [sparkfun's pulse sensor SEN-11574](https://www.sparkfun.com/products/11574).
 
- 1. Install Android SDK Platform 10 as well as Android 3.1 or later (I tried Android SDK Platform 16 Rev. 4, SDK Platform Tools Rev. 16.0.2, SDK Tools Rev. 22, and Processing 2.0)
+ 1. Install Android SDK Platform 23 or higher as well as Android SDK Tools and Android SDK Platform-tools or later (I tried Android SDK Platform 23/24, SDK Platform Tools 24.0.3, SDK Tools 25.2.2, and Processing 3.2.1)
  1. Install Android mode on your Processing environment
+ 1. Install this library (Unzip `AndroidSerial-distribution.zip` and copy all files including `AndroidSerial` directory to your `libraries` folder (e.g. `~/Documents/Processing/libraries`))
  1. Go to the [page](https://www.sparkfun.com/products/11574)
  1. Download the Processing sketch from `Documents` section
  1. Open the downloaded sketch
+ 1. Sketch -> Import Library -> Android Serial Library for Processing (This will insert `import io.inventit.processing.android.serial.*;`)
  1. Modify the code as below
 
-        L60: println(Serial.list());    // print a list of available serial ports
+        around L9: // import processing.serial.*; // comment out
+        around L57: println(Serial.list());    // print a list of available serial ports
                      | (add `this`)
                      v
-        L60: println(Serial.list(this));    // print a list of available serial ports
+        around L57: println(Serial.list(this));    // print a list of available serial ports
 
-        L62: port = new Serial(this, Serial.list()[0], 19200);  // make sure Arduino is talking serial at this baud rate
+        around L61: port = new Serial(this, Serial.list()[0], 115200);  // make sure Arduino is talking serial at this baud rate
                      | (add `this`)
                      v
-	    L62: port = new Serial(this, Serial.list(this)[0], 19200);  // make sure Arduino is talking serial at this baud rate
+	    around L61: port = new Serial(this, Serial.list(this)[0], 115200);  // make sure Arduino is talking serial at this baud rate
 
- 1. Please make sure that you need to check and modigy the index of `Serial.list(this)` at the line 62 in order to specify the valid port name
+ 1. Please make sure that you need to check and modify the index of `Serial.list(this)` at the line 62 in order to specify the valid port name
  1. Create `res/xml` directories under the opened sketch directory (e.g. `~/Documents/Processing/PulseSensorAmpd_Processing_1dot1`)
  1. Copy `examples/PulseSensor11574/res/xml/device_fileter.xml` to the created directory (e.g. `~/Documents/Processing/PulseSensorAmpd_Processing_1dot1/res/xml`)
  1. Copy `examples/PulseSensor11574/AndroidManifest.xml` to the opened sketch directory (e.g. `~/Documents/Processing/PulseSensorAmpd_Processing_1dot1`)
- 1. Connect your Android 3.1+ device to your computer and Run the code
+ 1. Connect your Android device to your computer and Run the code
  1. The application may report `Unexpected error` on your Android screen but you can ignore it (tap `OK`)
  1. Disconnect the Android device from the computer and connect your FTDI device or Arduino to the Android device with USB cable
  1. Android asks you to choose an application to launch, then choose your application (e.g. `PulseSensorAmpd_Processing_1dot1`)
  1. Finally, you will see the same screen as your computer!
+
+![Galaxy J Screenshot](images/Galaxy_J_Screenshot.jpg)
 
 ## How to build
 
@@ -84,14 +89,15 @@ And you can find the artifact file named `AndroidSerial-distribution.zip` at `ta
 The directory structure of this application is as follows:
 
     |-- .settings (E)
+    |-- images
     |-- libs
     |   |-- processing
     |   |   `-- android-core
-    |   |       `-- 2.0
+    |   |       `-- android-mode-0252
     |   `-- com
     |       `-- hoho
     |           `-- usb-serial-for-android
-    |               `-- v010
+    |               `-- b96f9ca
     |-- src
     |   |-- main
     |   |   |-- assembly
