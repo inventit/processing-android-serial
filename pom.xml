@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.inventit.processing.android.serial</groupId>
 	<artifactId>processing-android-serial</artifactId>
-	<version>0.1.0</version>
+	<version>0.2.0</version>
 	<name>AndroidSerial</name>
 	<organization>
 		<name>Inventit Inc.</name>
