@@ -135,12 +135,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
  * [Robolectric](https://github.com/robolectric/robolectric/) ... Android testing library (TEST USE ONLY)
  * [Mockito](https://code.google.com/p/mockito/) ... Mock testing library (TEST USE ONLY)
 
-## Known Issues
-
- * Unexpected error occurs when the sketch is compiled and installed into a device
- * The current version of [usb-serial-for-android](https://code.google.com/p/usb-serial-for-android/) has several issues regarding data reading. If `java.io.IOException: Expected at least 2 bytes` is observed, please wait a moment or try to re-connect the cable though the trunk version of the driver is already fixed
-
 ## Change History
+
+0.2.0 : September 23, 2016
+
+ * Rename package to `io.inventit.processing.android.serial`
+ * Processing 3.2 support
+ * Use the latest version of [usb-serial-for-android](https://github.com/mik3y/usb-serial-for-android)
 
 0.1.0-alpha : February 29, 2016
 
