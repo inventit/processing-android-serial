@@ -6,9 +6,9 @@
 
 This is a Processing-for-Android library offering the serial communication.
 
-This library works on Android 3.1 or later since it uses Android USB Host API.
+This library works on Android 5.0 or later since it uses Android USB Host API.
 
-This library also includes [usb-serial-for-android](https://code.google.com/p/usb-serial-for-android/downloads/list) containing FTDI serial driver and USB CDC/ACM serial driver (for Arduino). The library still has some issues and also has bunch of improvements according to the google code site. I will update the library when the newer version is released.
+This library also includes [usb-serial-for-android](https://github.com/mik3y/usb-serial-for-android) containing FTDI serial driver and USB CDC/ACM serial driver working on Android. Since the project creates only AAR file by default, there is a shell script, `update_libs.sh`, to extract a jar file from the built AAR file. Use the script when you require the other revision of the project binary.
 
 Note that this version is alpha release.
 
