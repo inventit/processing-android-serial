@@ -88,7 +88,6 @@ And you can find the artifact file named `AndroidSerial-distribution.zip` at `ta
 ## Directory Structure
 The directory structure of this application is as follows:
 
-    |-- .settings (E)
     |-- images
     |-- libs
     |   |-- processing
@@ -111,7 +110,6 @@ The directory structure of this application is as follows:
     |       |-- java
     |       `-- resources
 
-(E) Eclipse specific setting files
 (X) is a working example for Sparkfun's Pulse Sensor SEN-11574
 
 ## Source Code License
