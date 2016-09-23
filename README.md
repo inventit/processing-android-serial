@@ -6,9 +6,9 @@
 
 This is a Processing-for-Android library offering the serial communication.
 
-This library works on Android 3.1 or later since it uses Android USB Host API.
+This library works on Android 5.0 or later since it uses Android USB Host API.
 
-This library also includes [usb-serial-for-android](https://code.google.com/p/usb-serial-for-android/downloads/list) containing FTDI serial driver and USB CDC/ACM serial driver (for Arduino). The library still has some issues and also has bunch of improvements according to the google code site. I will update the library when the newer version is released.
+This library also includes [usb-serial-for-android](https://github.com/mik3y/usb-serial-for-android) containing FTDI serial driver and USB CDC/ACM serial driver working on Android. Since the project creates only AAR file by default, there is a shell script, `update_libs.sh`, to extract a jar file from the built AAR file. Use the script when you require the other revision of the project binary.
 
 Note that this version is alpha release.
 
@@ -43,20 +43,20 @@ You can get a working example from the [sparkfun's pulse sensor SEN-11574](https
  1. Install this library (Unzip `AndroidSerial-distribution.zip` and copy all files including `AndroidSerial` directory to your `libraries` folder (e.g. `~/Documents/Processing/libraries`))
  1. Go to the [page](https://www.sparkfun.com/products/11574)
  1. Download the Processing sketch from `Documents` section
- 1. Open the downloaded sketch
- 1. Sketch -> Import Library -> Android Serial Library for Processing (This will insert `import io.inventit.processing.android.serial.*;`)
- 1. Modify the code as below
+ 1. Open the downloaded Processing sketch (not Arduino)
+ 1. On the Processing IDE, choose `Sketch` -> `Import Library` -> `Android Serial Library for Processing` (This will insert `import io.inventit.processing.android.serial.*;`)
+ 1. Modify the code as below (see [here](https://github.com/WorldFamousElectronics/PulseSensor_Amped_Processing_Visualizer/blob/pr/1/PulseSensorAmpd_Processing_1dot1/PulseSensorAmpd_Processing_1dot1.pde) for the source code available at the sparkfun site)
 
-        around L9: // import processing.serial.*; // comment out
-        around L57: println(Serial.list());    // print a list of available serial ports
+        L9: // import processing.serial.*; // comment out
+        L57: println(Serial.list());    // print a list of available serial ports
                      | (add `this`)
                      v
-        around L57: println(Serial.list(this));    // print a list of available serial ports
+        L57: println(Serial.list(this));    // print a list of available serial ports
 
-        around L61: port = new Serial(this, Serial.list()[0], 115200);  // make sure Arduino is talking serial at this baud rate
+        L61: port = new Serial(this, Serial.list()[0], 115200);  // make sure Arduino is talking serial at this baud rate
                      | (add `this`)
                      v
-	    around L61: port = new Serial(this, Serial.list(this)[0], 115200);  // make sure Arduino is talking serial at this baud rate
+	    L61: port = new Serial(this, Serial.list(this)[0], 115200);  // make sure Arduino is talking serial at this baud rate
 
  1. Please make sure that you need to check and modify the index of `Serial.list(this)` at the line 62 in order to specify the valid port name
  1. Create `res/xml` directories under the opened sketch directory (e.g. `~/Documents/Processing/PulseSensorAmpd_Processing_1dot1`)
@@ -68,6 +68,8 @@ You can get a working example from the [sparkfun's pulse sensor SEN-11574](https
  1. Android asks you to choose an application to launch, then choose your application (e.g. `PulseSensorAmpd_Processing_1dot1`)
  1. Finally, you will see the same screen as your computer!
 
+** Screenshot  on Galaxy J **
+
 ![Galaxy J Screenshot](images/Galaxy_J_Screenshot.jpg)
 
 ## How to build
@@ -78,6 +80,7 @@ Prior to building the project, you need to install the following software:
 
  1. JDK 6+ (Any JDK will be available)
  1. [Apache Maven](http://maven.apache.org/) (Choose the latest one if possible)
+ 1. [Gradle](https://gradle.org) is required if you run `update_libs.sh`, which downloads and builds the other revision of `usb-serial-for-android` source code than `b96f9ca`
 
 Then run the following command under the root of the project:
 
@@ -88,7 +91,6 @@ And you can find the artifact file named `AndroidSerial-distribution.zip` at `ta
 ## Directory Structure
 The directory structure of this application is as follows:
 
-    |-- .settings (E)
     |-- images
     |-- libs
     |   |-- processing
@@ -111,7 +113,6 @@ The directory structure of this application is as follows:
     |       |-- java
     |       `-- resources
 
-(E) Eclipse specific setting files
 (X) is a working example for Sparkfun's Pulse Sensor SEN-11574
 
 ## Source Code License
@@ -135,12 +136,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
  * [Robolectric](https://github.com/robolectric/robolectric/) ... Android testing library (TEST USE ONLY)
  * [Mockito](https://code.google.com/p/mockito/) ... Mock testing library (TEST USE ONLY)
 
-## Known Issues
-
- * Unexpected error occurs when the sketch is compiled and installed into a device
- * The current version of [usb-serial-for-android](https://code.google.com/p/usb-serial-for-android/) has several issues regarding data reading. If `java.io.IOException: Expected at least 2 bytes` is observed, please wait a moment or try to re-connect the cable though the trunk version of the driver is already fixed
-
 ## Change History
+
+0.2.0 : September 23, 2016
+
+ * Rename package to `io.inventit.processing.android.serial`
+ * Processing 3.2 support
+ * Use the latest version of [usb-serial-for-android](https://github.com/mik3y/usb-serial-for-android)
+ * Android Mode 0252 support
 
 0.1.0-alpha : February 29, 2016
 
