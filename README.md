@@ -143,6 +143,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
  * Rename package to `io.inventit.processing.android.serial`
  * Processing 3.2 support
  * Use the latest version of [usb-serial-for-android](https://github.com/mik3y/usb-serial-for-android)
+ * Android Mode 0252 support
 
 0.1.0-alpha : February 29, 2016
 
