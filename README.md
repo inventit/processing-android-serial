@@ -43,8 +43,8 @@ You can get a working example from the [sparkfun's pulse sensor SEN-11574](https
  1. Install this library (Unzip `AndroidSerial-distribution.zip` and copy all files including `AndroidSerial` directory to your `libraries` folder (e.g. `~/Documents/Processing/libraries`))
  1. Go to the [page](https://www.sparkfun.com/products/11574)
  1. Download the Processing sketch from `Documents` section
- 1. Open the downloaded sketch
- 1. Sketch -> Import Library -> Android Serial Library for Processing (This will insert `import io.inventit.processing.android.serial.*;`)
+ 1. Open the downloaded Processing sketch (not Arduino)
+ 1. On the Processing IDE, choose `Sketch` -> `Import Library` -> `Android Serial Library for Processing` (This will insert `import io.inventit.processing.android.serial.*;`)
  1. Modify the code as below (see [here](https://github.com/WorldFamousElectronics/PulseSensor_Amped_Processing_Visualizer/blob/pr/1/PulseSensorAmpd_Processing_1dot1/PulseSensorAmpd_Processing_1dot1.pde) for the source code available at the sparkfun site)
 
         L9: // import processing.serial.*; // comment out
@@ -68,6 +68,8 @@ You can get a working example from the [sparkfun's pulse sensor SEN-11574](https
  1. Android asks you to choose an application to launch, then choose your application (e.g. `PulseSensorAmpd_Processing_1dot1`)
  1. Finally, you will see the same screen as your computer!
 
+** Screenshot  on Galaxy J **
+
 ![Galaxy J Screenshot](images/Galaxy_J_Screenshot.jpg)
 
 ## How to build
@@ -78,6 +80,7 @@ Prior to building the project, you need to install the following software:
 
  1. JDK 6+ (Any JDK will be available)
  1. [Apache Maven](http://maven.apache.org/) (Choose the latest one if possible)
+ 1. [Gradle](https://gradle.org) is required if you run `update_libs.sh`, which downloads and builds the other revision of `usb-serial-for-android` source code than `b96f9ca`
 
 Then run the following command under the root of the project:
 
