@@ -2,13 +2,13 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.yourinventit.processing.android.serial</groupId>
+	<groupId>io.inventit.processing.android.serial</groupId>
 	<artifactId>processing-android-serial</artifactId>
-	<version>0.1.0-alpha</version>
+	<version>0.2.0</version>
 	<name>AndroidSerial</name>
 	<organization>
 		<name>Inventit Inc.</name>
-		<url>http://dev.yourinventit.com/</url>
+		<url>http://www.yourinventit.com/</url>
 	</organization>
 	<url>https://github.com/inventit/processing-android-serial</url>
 	<scm>
@@ -38,7 +38,7 @@
 		<dependency>
 			<groupId>processing</groupId>
 			<artifactId>android-core</artifactId>
-			<version>android-mode-0246</version>
+			<version>android-mode-0252</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -70,7 +70,7 @@
 		<dependency>
 			<groupId>com.hoho</groupId>
 			<artifactId>usb-serial-for-android</artifactId>
-			<version>v010</version>
+			<version>b96f9ca</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>

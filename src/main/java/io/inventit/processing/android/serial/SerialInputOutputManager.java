@@ -1,15 +1,15 @@
 /*
  * Copyright (C) 2013 InventIt Inc.
  */
-package com.yourinventit.processing.android.serial;
-
-import java.io.IOException;
-import java.nio.ByteBuffer;
+package io.inventit.processing.android.serial;
 
 import android.hardware.usb.UsbRequest;
 import android.util.Log;
-
 import com.hoho.android.usbserial.driver.UsbSerialDriver;
+import com.hoho.android.usbserial.driver.UsbSerialPort;
+
+import java.io.IOException;
+import java.nio.ByteBuffer;
 
 /**
  * Utility class which services a {@link UsbSerialDriver} in its {@link #run()}
@@ -29,7 +29,7 @@ class SerialInputOutputManager implements Runnable {
 	private static final int READ_WAIT_MILLIS = 200;
 	private static final int BUFSIZ = 4096;
 
-	private final UsbSerialDriver mDriver;
+	private final UsbSerialPort mDriver;
 
 	private final ByteBuffer mReadBuffer = ByteBuffer.allocate(BUFSIZ);
 
@@ -55,21 +55,22 @@ class SerialInputOutputManager implements Runnable {
 		/**
 		 * Called when {@link SerialInputOutputManager#run()} aborts due to an
 		 * error.
+		 * @return true if transition to stop state
 		 */
-		public void onRunError(Exception e);
+		public boolean onRunError(Exception e);
 	}
 
 	/**
 	 * Creates a new instance with no listener.
 	 */
-	public SerialInputOutputManager(UsbSerialDriver driver) {
+	public SerialInputOutputManager(UsbSerialPort driver) {
 		this(driver, null);
 	}
 
 	/**
 	 * Creates a new instance with the provided listener.
 	 */
-	public SerialInputOutputManager(UsbSerialDriver driver, Listener listener) {
+	public SerialInputOutputManager(UsbSerialPort driver, Listener listener) {
 		mDriver = driver;
 		mListener = listener;
 	}
@@ -115,25 +116,27 @@ class SerialInputOutputManager implements Runnable {
 		}
 
 		Log.i(TAG, "Running ..");
-		try {
-			while (true) {
+		while (true) {
+			try {
 				if (getState() != State.RUNNING) {
 					Log.i(TAG, "Stopping mState=" + getState());
 					break;
 				}
 				step();
+			} catch (Exception e) {
+				Log.w(TAG, "Run ending due to exception: " + e.getMessage(), e);
+				final Listener listener = getListener();
+				if (listener != null) {
+					if (listener.onRunError(e) == false) {
+						continue;
+					}
+				}
+				break;
 			}
-		} catch (Exception e) {
-			Log.w(TAG, "Run ending due to exception: " + e.getMessage(), e);
-			final Listener listener = getListener();
-			if (listener != null) {
-				listener.onRunError(e);
-			}
-		} finally {
-			synchronized (this) {
-				mState = State.STOPPED;
-				Log.i(TAG, "Stopped.");
-			}
+		}
+		synchronized (this) {
+			mState = State.STOPPED;
+			Log.i(TAG, "Stopped.");
 		}
 	}
 

@@ -1,11 +1,11 @@
 /*
  * Copyright (C) 2013 InventIt Inc.
  */
-package com.yourinventit.processing.android.serial;
+package io.inventit.processing.android.serial;
 
+import android.os.Build;
 import processing.core.PApplet;
 import processing.data.JSONObject;
-import android.os.Build;
 
 /**
  *

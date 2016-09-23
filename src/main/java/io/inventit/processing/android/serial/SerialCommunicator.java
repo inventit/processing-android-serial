@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2013 InventIt Inc.
  */
-package com.yourinventit.processing.android.serial;
+package io.inventit.processing.android.serial;
 
 /**
  * This interface represents a serial port and encapsulates its implementation.
@@ -12,10 +12,10 @@ package com.yourinventit.processing.android.serial;
  * In order to instantiate this class, you must invoke
  * {@link SerialCommunicatorFacory#create(processing.core.PApplet, String)}.
  * 
- * Use {@link SerialCommunicator#start(String, int, String, String, String, String)} to set
- * a port idenfier, baurdrate, etc.
+ * Use {@link SerialCommunicator#start(String, int, char, int, float)} to set
+ * a port identifier, baurdrate, etc.
  * 
- * You can get a list of avaiable port identifiers by {@link SerialCommunicator#list()}.
+ * You can get a list of available port identifiers by {@link SerialCommunicator#list()}.
  * 
  * @author dbaba@yourinventit.com
  * 
@@ -49,7 +49,7 @@ public interface SerialCommunicator {
 	void start(String portIdentifier, int baudrate);
 
 	/**
-	 * Starts the serial communication.
+	 * Starts the serial communication. This method will be invoked automatically by the constructor.
 	 * 
 	 * From <a
 	 * href="http://processing.org/reference/libraries/serial/Serial.html"
@@ -137,6 +137,45 @@ public interface SerialCommunicator {
 	 * @return
 	 */
 	int read();
+
+	/**
+	 * Returns the next byte in the buffer as a char. Returns -1 or 0xffff if nothing is there.
+	 *
+	 * From <a href=
+	 * "https://processing.org/reference/libraries/serial/Serial_readChar_.html"
+	 * >Serial.readChar()</a>
+	 *
+	 * @return
+	 */
+	char readChar();
+
+	/**
+	 * Returns last byte received.
+	 *
+	 * Returns -1 if there is no byte, although this should be avoided by first
+	 * checking available() to see if data is available.
+	 *
+	 * From <a href=
+	 * "https://processing.org/reference/libraries/serial/Serial_last_.html"
+	 * >Serial.last()</a>
+	 *
+	 * @return
+	 */
+	int last();
+
+	/**
+	 * Returns the last byte received as a char.
+	 *
+	 * Returns -1 if there is no byte, although this should be avoided by first
+	 * checking available() to see if data is available.
+	 *
+	 * From <a href=
+	 * "https://processing.org/reference/libraries/serial/Serial_lastChar_.html"
+	 * >Serial.lastChar()</a>
+	 *
+	 * @return
+	 */
+	char lastChar();
 
 	/**
 	 * Reads a group of bytes from the buffer. The version with no parameters
