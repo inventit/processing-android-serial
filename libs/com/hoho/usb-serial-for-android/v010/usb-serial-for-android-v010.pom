@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><project>
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.hoho</groupId>
-  <artifactId>usb-serial-for-android</artifactId>
-  <version>v010</version>
-  <url>https://code.google.com/p/usb-serial-for-android/</url>
-  <description>GNU Lesser GPL</description>
-  <name>USB Serial Driver for Android</name>
-</project>
