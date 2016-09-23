@@ -55,8 +55,9 @@ class SerialInputOutputManager implements Runnable {
 		/**
 		 * Called when {@link SerialInputOutputManager#run()} aborts due to an
 		 * error.
+		 * @return true if transition to stop state
 		 */
-		public void onRunError(Exception e);
+		public boolean onRunError(Exception e);
 	}
 
 	/**
@@ -115,25 +116,27 @@ class SerialInputOutputManager implements Runnable {
 		}
 
 		Log.i(TAG, "Running ..");
-		try {
-			while (true) {
+		while (true) {
+			try {
 				if (getState() != State.RUNNING) {
 					Log.i(TAG, "Stopping mState=" + getState());
 					break;
 				}
 				step();
+			} catch (Exception e) {
+				Log.w(TAG, "Run ending due to exception: " + e.getMessage(), e);
+				final Listener listener = getListener();
+				if (listener != null) {
+					if (listener.onRunError(e) == false) {
+						continue;
+					}
+				}
+				break;
 			}
-		} catch (Exception e) {
-			Log.w(TAG, "Run ending due to exception: " + e.getMessage(), e);
-			final Listener listener = getListener();
-			if (listener != null) {
-				listener.onRunError(e);
-			}
-		} finally {
-			synchronized (this) {
-				mState = State.STOPPED;
-				Log.i(TAG, "Stopped.");
-			}
+		}
+		synchronized (this) {
+			mState = State.STOPPED;
+			Log.i(TAG, "Stopped.");
 		}
 	}
 

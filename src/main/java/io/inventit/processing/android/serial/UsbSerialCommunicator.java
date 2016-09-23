@@ -238,7 +238,19 @@ class UsbSerialCommunicator extends AbstractAndroidSerialCommunicator implements
 	 * 
 	 * @see SerialInputOutputManager.Listener#onRunError(java.lang.Exception)
 	 */
-	public void onRunError(Exception e) {
+	public boolean onRunError(Exception e) {
+		if (e instanceof IOException) {
+			final String message = e.getMessage();
+			if (message != null &&
+					(message.indexOf("Error queueing request.") >= 0 || message.indexOf("Null response") >= 0)) {
+				LOGGER.warn("USB read error: [{}]", message);
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException ignored) {
+				}
+				return false; // continue
+			}
+		}
 		LOGGER.warn("Exception detected. Restart SerialInputOutputManager.", e);
 		doStop();
 		try {
@@ -247,6 +259,7 @@ class UsbSerialCommunicator extends AbstractAndroidSerialCommunicator implements
 		}
 		doStart(getPortIdentifier(), getBaudrate(), getParity(), getDataBits(),
 				getStopBits());
+		return true; // stop
 	}
 
 	/**
