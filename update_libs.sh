@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-LIB_VERSION="ccc8e8d"
-LIB_ZIP_URL="https://github.com/mik3y/usb-serial-for-android/archive/ccc8e8d3f05bb17f367aa5ad70c6a787f3a79c68.zip"
+LIB_VERSION="b96f9ca"
+LIB_ZIP_URL="https://github.com/mik3y/usb-serial-for-android/archive/b96f9ca7a25f44e997e1b5cb5746eb8082716168.zip"
 LIB_PATH="./libs/com/hoho/usb-serial-for-android"
 
 # Use android command to install the following dependencies
@@ -25,5 +25,5 @@ cp -f usbSerialForAndroid/build/outputs/aar/usbSerialForAndroid-release.aar \
 cp -f ../../usb-serial-for-android-template.pom ../usb-serial-for-android-${LIB_VERSION}.pom
 sed -i -e "s/%LIB_VERSION%/${LIB_VERSION//\//\\/}/g" ../usb-serial-for-android-${LIB_VERSION}.pom
 cd ..
-jar xf usb-serial-for-android-ccc8e8d.aar classes.jar
+jar xf usb-serial-for-android-${LIB_VERSION}.aar classes.jar
 mv classes.jar usb-serial-for-android-${LIB_VERSION}.jar

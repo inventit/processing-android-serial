@@ -70,7 +70,7 @@
 		<dependency>
 			<groupId>com.hoho</groupId>
 			<artifactId>usb-serial-for-android</artifactId>
-			<version>ccc8e8d</version>
+			<version>b96f9ca</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
